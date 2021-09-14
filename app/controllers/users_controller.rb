@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     def index
         if params[:search]
-            @users = User.where("lower(username) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 6).order(created_at: :desc)
+            @users = User.where("lower(username) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 6).order(created_at: :desc)
         else
             @users = User.paginate(page: params[:page], per_page: 6).order(created_at: :desc)
         end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
     def show
         if params[:search]
-            @stories = @user.stories.where("lower(title) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 5).order(created_at: :desc)
+            @stories = @user.stories.where("lower(title) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 5).order(created_at: :desc)
         else
             @stories = @user.stories.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
         end

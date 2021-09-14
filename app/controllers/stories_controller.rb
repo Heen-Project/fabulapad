@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
 
     def subscribed
         if params[:search]
-            @stories = Story.subscribed(current_user.followings).where("lower(title) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 7).order(created_at: :desc)
+            @stories = Story.subscribed(current_user.followings).where("lower(title) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 7).order(created_at: :desc)
         else
             @stories = Story.subscribed(current_user.followings).paginate(page: params[:page], per_page: 7).order(created_at: :desc)
         end
@@ -18,7 +18,7 @@ class StoriesController < ApplicationController
 
     def index
         if params[:search]
-            @stories = Story.where("lower(title) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 7).order(created_at: :desc)
+            @stories = Story.where("lower(title) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 7).order(created_at: :desc)
         else
             @stories = Story.paginate(page: params[:page], per_page: 7).order(created_at: :desc)
         end

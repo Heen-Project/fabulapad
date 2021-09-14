@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
     def index
         if params[:search]
-            @category = Category.where("lower(name) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 4).order(created_at: :desc)
+            @category = Category.where("lower(name) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 4).order(created_at: :desc)
         else
             @category = Category.paginate(page: params[:page], per_page: 6).order(created_at: :desc)
         end
@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
 
     def show
         if params[:search]
-            @stories = @category.stories.where("lower(title) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 5).order(created_at: :desc)
+            @stories = @category.stories.where("lower(title) LIKE ?", "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 5).order(created_at: :desc)
         else
             @stories = @category.stories.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
         end
