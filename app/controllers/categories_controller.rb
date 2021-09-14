@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
         if params[:search]
             @category = Category.where("lower(name) LIKE ?", "%#{params[:search]}%").paginate(page: params[:page], per_page: 4).order(created_at: :desc)
         else
-            @category = Category.paginate(page: params[:page], per_page: 4).order(created_at: :desc)
+            @category = Category.paginate(page: params[:page], per_page: 6).order(created_at: :desc)
         end
     end
 
