@@ -1,0 +1,35 @@
+@import 'bootstrap/dist/css/bootstrap';
+@import 'pagination';
+.logo {
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+.padded-container {
+    margin: 25px auto;
+}
+
+.jumbotron {
+    background-image: asset-url('jumbo-copy.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    padding: 5% 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.page-content {
+    flex: 1 0 auto;
+}
+
+.sticky-footer {
+    flex-shrink: none;
+} 

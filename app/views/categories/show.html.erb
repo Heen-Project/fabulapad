@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="text-center mt-4 card-title">Category: <%= @category.name.capitalize %></h1>
+        <%= render 'shared/search_bar', path: category_path(@category) %>
+        <%= render 'stories/stories', obj: @stories %>
+        <div class="flickr_pagination mt-3">
+            <%= will_paginate @stories, :container => false %>
+        </div>
+    </div>
+    <%= render 'shared/return_home_footer', obj: nil %>
+</div>

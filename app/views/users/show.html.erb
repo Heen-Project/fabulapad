@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="text-center mt-4 card-title"><%= @user.username %>'s Story</h1>
+        <div class="mb-4">
+            <%= gravatar_for @user, size: 150 %>
+        </div>
+        <% if logged_in? %>
+            <div class="mb-3 text-center">
+                <div class="btn-group">
+                    <% if @user == current_user %>
+                        <%= link_to 'Follower', follower_path(@user), class:"btn btn-outline-info" %>
+                        <%= link_to 'Edit account', edit_user_path(@user), class:"btn btn-outline-success" %>
+                        <%= link_to 'Following', following_path(@user), class:"btn btn-outline-info" %>
+                    <% elsif current_user.followings.include? @user %>
+                        <%= link_to 'Unfollow', unfollow_user_path(@user.id), method: 'POST', class:"btn btn-outline-secondary" %>
+                    <% else %>
+                        <%= link_to 'Follow', follow_user_path(@user.id), method: 'POST', class:"btn btn-outline-info" %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+        <%= render 'shared/search_bar', path: user_path(@user) %>
+        <%= render 'stories/stories', obj: @stories %>
+        <div class="flickr_pagination mt-3">
+            <%= will_paginate @stories, :container => false %>
+        </div>
+    </div>
+    <%= render 'shared/return_home_footer', obj: nil %>
+</div>

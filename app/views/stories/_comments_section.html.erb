@@ -1,0 +1,50 @@
+<div class="card mt-5">
+    <div class="card-body">
+        <h5 class="font-weight-bold">Comments</h5>
+        <hr />
+        <% obj.each do |comment| %>
+            <div class="mx-3 row  <%= "justify-content-end" if logged_in? && comment.user == current_user %>">
+                <div class="card mb-3 w-75 <%= "text-right" if logged_in? && comment.user == current_user %>">
+                    <div class="card-header d-flex w-100 justify-content-between">
+                        <% if logged_in? && comment.user == current_user %>
+                            <%= link_to 'remove', delete_comment_path(comment.id), method: :delete, data: { confirm: "Are you sure you ?" }, class:"badge badge-pill badge-danger ml-1" %>
+                            <small class="text-muted">
+                                    You <%= time_ago_in_words(comment.created_at) %> ago
+                            </small>
+                        <% else %>
+                            <small class="text-muted">
+                                    <%= link_to comment.user.username, user_path(comment.user) %> <%= time_ago_in_words(comment.created_at) %> ago
+                            </small>
+                            <% if logged_in? && current_user.is_admin? %>
+                            <%= link_to 'remove', delete_comment_path(comment.id), method: :delete, data: { confirm: "Are you sure you ?" }, class:"badge badge-pill badge-danger ml-1" %>
+                            <% end %>
+                        <% end %> 
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><%= comment.content %></li>
+                    </ul>
+                </div>
+            </div>
+        <% end %>
+        <div class="flickr_pagination mt-3">
+            <%= will_paginate obj, :container => false %>
+        </div>
+        <% if logged_in? %>
+            <%= form_with(model: @comment, local: true) do |form| %>
+                <%= form.hidden_field :user_id, :value => current_user.id %>
+                <%= form.hidden_field :story_id, :value => @story.id %>
+                <div class="form-group">
+                    <%= form.label 'Add comment content' %>
+                    <%= form.text_area :content, placeholder: 'Type your comment content here', class: "form-control" %>
+                </div>
+                <div class="text-right">
+                    <%= form.submit 'Submit', class: "btn btn-primary" %>
+                </div>
+            <% end %>
+        <% else %>
+            <div class="card text-center mt-3 bg-light">
+                <div class="card-body">Please login to comment.</div>
+            </div>
+        <% end %>
+    </div>
+</div>

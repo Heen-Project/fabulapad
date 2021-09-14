@@ -1,0 +1,8 @@
+<%= form_tag(path, method: :get) do |form| %>
+    <div class="input-group my-4">
+        <%= text_field_tag :search, params[:search] || '', placeholder: "Type your keyword here", class: "form-control" %>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">search</button>
+        </div>
+    </div>
+<% end %>

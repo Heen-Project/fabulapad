@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center"><%= @story.title %></h2>
+    </div>
+    <div class="card-body">
+        <div class="text-center card-title">
+            <h5 >by <%= link_to @story.user.username, user_path(@story.user) %></h5>
+            <% if @story.categories.any? %>
+                <%= render @story.categories %>
+            <% end %>
+        </div>
+        <div class="trix-content card-text text-justify">
+            <%= @story.content %>
+        </div>
+        <% if logged_in? && (@story.user == current_user || current_user.is_admin?) %>
+        <div class="text-center mt-3">
+            <div class="btn-group">
+                <%= link_to 'Edit', edit_story_path(@story.id), class:"btn btn-outline-secondary" %>
+                <%= link_to 'Delete', story_path(@story.id), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+    <%= render 'shared/return_home_footer', obj: nil %>
+</div>
+<%= render 'comments_section', obj: @comments %>

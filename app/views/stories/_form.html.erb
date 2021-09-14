@@ -1,0 +1,18 @@
+<%= form_with(model: @story, local: true) do |form| %>
+    <div class="form-group">
+        <%= form.label :title %>
+        <%= form.text_field :title, placeholder: 'Type your title here', class: "form-control" %>
+    </div>
+    <div class="form-group field">
+        <%= form.label :category %>
+        <%= form.collection_select :category_ids , Category.order(:name), :id, :name, { promt: "Select all the matching category (can be empty)" }, { multiple: true, size: 5, class: "custom-select form-control" } %>
+    </div>
+    <div class="form-group field">
+        <%= form.label :content %>
+        <%= form.rich_text_area :content, placeholder: 'Type your story here' %>
+    </div>
+    <%= render 'shared/error', obj: @story %>
+    <div class="text-right">
+        <%= form.submit class: "btn btn-primary" %>
+    </div>
+<% end %>

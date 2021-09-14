@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <%= link_to "Fabulapad", root_path, class:"navbar-brand logo" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <%= link_to "Categories", categories_path, class:"nav-link" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to "Stories", stories_path, class:"nav-link" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to "Writers", users_path, class:"nav-link" %>
+            </li>
+            <% if logged_in? %>
+                <li class="nav-item">
+                    <%= link_to "Subscribed", subscribed_path, class:"nav-link" %>
+                </li>   
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                        <%= current_user.username %>
+                        <%= " (admin)" if current_user.is_admin? %>
+                    </a>
+                    <div class="dropdown-menu">
+                        <%= link_to 'My account', user_path(current_user) , class:"dropdown-item" %>
+                        <%= link_to 'Edit account', edit_user_path(current_user), class:"dropdown-item" %>
+                        <%= link_to 'Follower', follower_path(current_user), class:"dropdown-item" %>
+                        <%= link_to 'Following', following_path(current_user), class:"dropdown-item" %>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+        <div class="btn-group my-2 my-lg-0">
+            <% if logged_in? %>
+                <%= link_to "Logout", logout_path, method: :delete, class:"btn btn-success" %>
+            <% else %>
+                <%= link_to "Signup", signup_path, class: "btn btn-success" %>
+                <%= link_to "Login", login_path, class:"btn btn-secondary" %>
+            <% end %>
+        </div>
+    </div>
+</nav>

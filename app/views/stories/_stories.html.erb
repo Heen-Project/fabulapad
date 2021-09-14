@@ -1,0 +1,30 @@
+<div class="list-group list-group-flush">
+    <% if !obj.any? %>
+        <div class="card text-center mt-3">
+            <div class="card-body">No story found.</div>
+        </div>
+    <% end %>
+    <% obj.each do |story| %>
+    <div href="#" class="list-group-item list-group-item-action flex-column align-items-start mt-3">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 font-weight-bold"><%= link_to story.title, story_path(story), class:"text-primary" %></h5>
+            <small>by <%= link_to story.user.username, user_path(story.user) %> - Created <%= time_ago_in_words(story.created_at) %> ago</small>
+        </div>
+        <p class="mb-1 font-weight-light"><%= truncate(story.content.to_plain_text, :length => 120) %></p>
+        <div class="d-flex justify-content-between align-self-center">
+            <small>
+                <% if story.categories.any? %>
+                    <%= render story.categories %>
+                <% end %>
+            </small>
+            <div class="btn-group">
+                <%= link_to 'View', story_path(story.id), class: "badge btn btn-outline-success" %>
+                <% if logged_in? && (story.user == current_user || current_user.is_admin?) %>
+                    <%= link_to 'Edit', edit_story_path(story.id), class:"badge btn btn-outline-secondary" %>
+                    <%= link_to 'Delete', story_path(story.id), method: :delete, data: { confirm: 'Are you sure?' }, class:"badge btn btn-outline-danger" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+</div>

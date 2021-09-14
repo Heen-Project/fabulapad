@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center">Following</h2>
+    </div>
+    <div class="card-body">
+        <%= render 'users', obj: @users %>
+        <div class="flickr_pagination mt-3">
+            <%= will_paginate @stories, :container => false %>
+        </div>
+    </div>
+    <%= render 'shared/return_home_footer', obj: nil %>
+</div>

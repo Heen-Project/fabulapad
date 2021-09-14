@@ -1,0 +1,12 @@
+<%= form_with(model: @category, local: true) do |form| %>
+    <div class="input-group mb-2 mt-5">
+        <div class="input-group-prepend">
+            <%= form.label :name, "Category name", class: "input-group-text" %>
+        </div>
+        <%= form.text_field :name, placeholder: 'Type the category name here', class: "form-control" %>
+    </div>
+    <%= render 'shared/error', obj: @category %>
+    <div class="text-right">
+        <%= form.submit(@category.new_record? ? "Add Category" : "Rename Category", class: "btn btn-primary") %>
+    </div>
+<% end %>

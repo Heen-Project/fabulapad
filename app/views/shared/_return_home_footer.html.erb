@@ -1,0 +1,6 @@
+<div class="card-footer text-muted text-center">
+    <%= link_to 'Return to home page', root_path, class: "badge badge-primary" %>
+    <% if !!obj %>
+        | <%= link_to "Return to story", story_path(obj.id), class: "badge badge-primary" %>
+    <% end %>
+</div>

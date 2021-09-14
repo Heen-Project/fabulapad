@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="text-center mt-4 card-title">Categories</h1>
+        <%= render 'shared/search_bar', path: categories_path %>
+        <%= render 'categories', obj: @category %>
+        <div class="flickr_pagination mt-3">
+            <%= will_paginate @category, :container => false %>
+        </div>
+        <% if logged_in? && current_user.is_admin %>
+            <%= link_to 'Add a new category', new_category_path, class: "btn btn-primary btn-lg btn-block mt-3" %>
+        <% end %>
+    </div>
+    <%= render 'shared/return_home_footer', obj: nil %>
+</div>
